@@ -1,17 +1,17 @@
 import random
 import sys
 
-from PyQt5 import uic
+from UI import Ui_MainWindow
 from PyQt5.QtCore import QPoint
 from PyQt5.QtGui import QPainter, QColor
 from PyQt5.QtWidgets import QApplication, QMainWindow
 
 
-class MyWidget(QMainWindow):
+class MyWidget(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('UI.ui', self)
-        self.setWindowTitle("Git и желтые окружности")
+        self.setupUi(self)
+        self.setWindowTitle("Git и случайные окружности")
         self.do_paint = False
         self.pushButton.clicked.connect(self.paint)
 
@@ -19,7 +19,7 @@ class MyWidget(QMainWindow):
         if self.do_paint:
             qp = QPainter()
             qp.begin(self)
-            qp.setBrush(QColor("yellow"))
+            qp.setBrush(QColor(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)))
             self.draw_circle(qp)
             qp.end()
 
